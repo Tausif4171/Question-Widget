@@ -19,13 +19,52 @@
         // { text: "Increase engagement", completed: false },
       ];
       // Instantiate the widget and pass props
-      const widget = new GoalsWidget({
+      // const widget = new GoalsWidget({
+      //   container: goalsContainerElement,
+      //   options: sampleGoals,
+      //   heading: "What are your design goals?",
+      //   rightArrow:
+      //     "https://timefix-media-upload.s3.amazonaws.com/rightArrow.svg",
+      //   handShake: "./handShake.svg",
+      // });
+      const stepper = new GoalsWidget({
         container: goalsContainerElement,
-        options: sampleGoals,
-        heading: "What are your design goals?",
         rightArrow:
           "https://timefix-media-upload.s3.amazonaws.com/rightArrow.svg",
-        handShake: "./handShake.svg",
+        steps: [
+          {
+            question: "Question 1?",
+            options: [
+              { text: "Option 1", selected: false },
+              { text: "Option 2", selected: false },
+              { text: "Option 3", selected: false },
+            ],
+          },
+          {
+            question: "Question 2?",
+            options: [
+              { text: "Option 1", selected: false },
+              { text: "Option 2", selected: false },
+              { text: "Option 3", selected: false },
+            ],
+          },
+          {
+            question: "Question 3?",
+            options: [
+              { text: "Option 1", selected: false },
+              { text: "Option 2", selected: false },
+              { text: "Option 3", selected: false },
+            ],
+          },
+          {
+            question: "Question 4?",
+            options: [
+              { text: "Option 1", selected: false },
+              { text: "Option 2", selected: false },
+              { text: "Option 3", selected: false },
+            ],
+          },
+        ],
       });
       // Render the widget inside the container
       widget.render();
