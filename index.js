@@ -2,6 +2,10 @@ class GoalsWidget {
     constructor(props) {
         this.props = props;
         this.options = props.options || [];
+
+        this.steps = props.steps || [];
+        this.currentStepIndex = 0;
+
         this.container = props.container;
         this.heading = props.heading;
         this.rightArrow = props.rightArrow;
@@ -17,7 +21,7 @@ class GoalsWidget {
                 display: block;
                 margin: 0;
                 padding: 0;
-                // background: #F7F7F8;
+                background: #F7F7F8;
             }
             .main-container{
                 background: #FEFEFE;
@@ -129,6 +133,23 @@ class GoalsWidget {
                 }
             }
 
+            .stepper-indicator {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .stepper-step {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #ccc;
+            }
+
+            .stepper-step.active {
+                background-color: #000;
+            }
+
 
         `;
         document.head.appendChild(styleElement);
@@ -137,104 +158,92 @@ class GoalsWidget {
 
     render() {
         this.container.innerHTML = '';
+
         const mainContainer = document.createElement("div");
         mainContainer.className = "main-container";
-        const mcqContainer = document.createElement("div");
-        mcqContainer.className = "goals-container";
-        mainContainer.appendChild(mcqContainer)
-        const title = document.createElement("h2");
-        title.textContent = this.heading;
-        title.className = 'goalswidget-title';
-        mcqContainer.appendChild(title);
+        const stepContainer = document.createElement("div");
+        stepContainer.className = "step-container";
+        mainContainer.appendChild(stepContainer);
 
-        // Variable to check if any option is selected
+        // Stepper indicator
+        const stepperIndicator = document.createElement("div");
+        stepperIndicator.className = "stepper-indicator";
+        for (let i = 0; i < this.steps.length; i++) {
+            const stepIndicator = document.createElement("div");
+            stepIndicator.className = `stepper-step ${i <= this.currentStepIndex ? 'active' : ''}`;
+            stepperIndicator.appendChild(stepIndicator);
+        }
+        mainContainer.appendChild(stepperIndicator);
+
+        const currentStep = this.steps[this.currentStepIndex];
+
+        const title = document.createElement("h2");
+        title.textContent = currentStep.question;
+        title.className = 'goalswidget-title';
+        stepContainer.appendChild(title);
+
         let isAnyOptionSelected = false;
 
-        this.options.forEach((option, index) => {
+        currentStep.options.forEach((option, index) => {
             const optionDiv = document.createElement("div");
             optionDiv.className = "goals-option";
             optionDiv.addEventListener("click", () => {
                 this.toggleRadioButton(index);
             });
+
             const optionText = document.createElement("div");
             optionText.className = "goals-option-text";
-            optionText.textContent = option.text; // Display the option text
+            optionText.textContent = option.text;
             optionDiv.appendChild(optionText);
-            if (this.options[index].selected) {
+
+            if (currentStep.options[index].selected) {
                 optionDiv.classList.add('goals-selected');
-                isAnyOptionSelected = true; // Set to true if an option is selected
+                isAnyOptionSelected = true;
             }
-            mcqContainer.appendChild(optionDiv);
+
+            stepContainer.appendChild(optionDiv);
         });
 
         if (isAnyOptionSelected) {
-            // If any option is selected, add the nextDiv
             const nextDiv = document.createElement("div");
             nextDiv.className = "goals-nextDiv";
 
-            // Add a submit button
             const nextText = document.createElement('p');
-            nextText.textContent = 'Confirm';
+            nextText.textContent = 'Next';
             nextText.className = 'goals-nextText';
 
             const rightArrow = document.createElement('img');
-            rightArrow.src = this.rightArrow;
+            rightArrow.src = this.props.rightArrow;
 
             nextDiv.addEventListener('click', () => {
-                mcqContainer.classList.add('goals-divHide')
-                this.nextSteps()
-
-            })
+                this.nextStep();
+            });
 
             nextDiv.appendChild(nextText);
             nextDiv.appendChild(rightArrow);
-            mcqContainer.appendChild(nextDiv);
+            stepContainer.appendChild(nextDiv);
         }
-
-
 
         this.container.appendChild(mainContainer);
     }
 
-
-    nextSteps() {
-        console.log('hello')
-        const nextStep = document.createElement("div");
-        nextStep.className = "goals-nextStep";
-
-        const image = document.createElement('img')
-        image.src = this.handShake
-
-        nextStep.appendChild(image)
-
-        const heading = document.createElement('p')
-        heading.textContent = "That's it."
-        heading.className = 'goals-next-step-heading'
-
-        nextStep.appendChild(heading)
-
-        const description = document.createElement('p')
-        description.textContent = "We will keep that in mind for our meeting"
-        description.className = 'goals-next-step-description'
-
-
-        nextStep.appendChild(description)
-
-        // this.mainContainer.appendChild(nextStep)
-        const containers = document.getElementsByClassName('main-container');
-        for (const container of containers) {
-            container.appendChild(nextStep);
+    nextStep() {
+        if (this.currentStepIndex < this.steps.length - 1) {
+            this.currentStepIndex++;
+            this.render();
+        } else {
+            // Handle completion or submission logic
+            console.log('Stepper completed!');
         }
     }
 
     toggleRadioButton(index) {
-        // Unselect all options first
-        this.options.forEach((option) => {
+        const currentStep = this.steps[this.currentStepIndex];
+        currentStep.options.forEach((option) => {
             option.selected = false;
         });
-        // Select the clicked option
-        this.options[index].selected = true;
-        // Update the styling for the selected option
+
+        currentStep.options[index].selected = true;
         this.render();
     }
 }
