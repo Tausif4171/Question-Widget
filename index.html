@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Goals Widget Demo</title>
+    <style>
+      /* Add your custom styles here, if needed */
+    </style>
+  </head>
+  <body>
+    <div id="goals-container"></div>
+    <script src="./GoalsWidget.js"></script>
+    <script>
+      const goalsContainerElement = document.getElementById("goals-container");
+      // Sample goals data
+      const sampleGoals = [
+        { text: "Increase brand awareness", completed: false },
+        { text: "Boost conversions", completed: true },
+        { text: "Fix an old design", completed: false },
+        // { text: "Increase engagement", completed: false },
+      ];
+      // Instantiate the widget and pass props
+      const widget = new GoalsWidget({
+        container: goalsContainerElement,
+        options: sampleGoals,
+        heading: "What are your design goals?",
+        rightArrow:
+          "https://timefix-media-upload.s3.amazonaws.com/rightArrow.svg",
+        handShake: "./handShake.svg",
+      });
+      // Render the widget inside the container
+      widget.render();
+    </script>
+  </body>
+</html>
