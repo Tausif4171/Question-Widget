@@ -1,15 +1,10 @@
 class GoalsWidget {
     constructor(props) {
         this.props = props;
-        this.options = props.options || [];
-
         this.steps = props.steps || [];
         this.currentStepIndex = 0;
 
         this.container = props.container;
-        this.heading = props.heading;
-        this.rightArrow = props.rightArrow;
-        this.handShake = props.handShake;
         this.createStyles();
         this.render();
     }
@@ -23,18 +18,34 @@ class GoalsWidget {
                 padding: 0;
                 background: #F7F7F8;
             }
-            .main-container{
+            .main-container {
                 background: #FEFEFE;
                 border-radius: 16px;
                 width: 410px;
-                height:400px;
+                height: 400px;
                 padding-bottom: 28px;
+            }
+            .stepper-indicator {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+                margin-left: 24px;
+                margin-right: 24px;
+            }
+            .stepper-step {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #ccc;
+            }
+            .stepper-step.active {
+                background-color: #000;
             }
             .goalswidget-title {
                 color: #000000;
                 font-size: 19px;
                 padding-bottom: 33px;
-                padding-top: 40px;
+                padding-top: 20px;
                 padding-left: 24px;
             }
             .goals-container {
@@ -54,7 +65,7 @@ class GoalsWidget {
                 padding-left: 17px;
                 cursor: pointer;
             }
-            .goals-option:hover{
+            .goals-option:hover {
                 border: 1px solid #A49999;
             }
             .goals-option-text {
@@ -77,11 +88,11 @@ class GoalsWidget {
                 font-size: 16px;
             }
             .goals-nextDiv {
-                margin-top:12px;
+                margin-top: 12px;
                 margin-left: 24px;
                 display: flex;
                 gap: 10px;
-                justify-content: center; 
+                justify-content: center;
                 align-items: center;
                 text-align: center;
                 width: 117px !important;
@@ -90,80 +101,52 @@ class GoalsWidget {
                 border-radius: 4px;
                 padding: 8px 16px;
                 border: none;
-                cursor:pointer;
+                cursor: pointer;
             }
-
-            .goals-nextText{
+            .goals-nextText {
                 color: #FFFFFF;
-                font-size:14px;
-                font-weight:700;   
+                font-size: 14px;
+                font-weight: 700;
             }
-            
             .goals-nextStep {
                 margin: 0;
                 padding: 0;
                 color: #FFFFFF;
                 font-size: 14px;
-                padding-top:157px;
-                margin-left:24px;
+                padding-top: 157px;
+                margin-left: 24px;
             }
-
-            .goals-next-step-heading{
+            .goals-next-step-heading {
                 color: #000000;
-                font-size:19px;
-                margin-top:20px;
+                font-size: 19px;
+                margin-top: 20px;
             }
-            .goals-next-step-description{
-                width:348px;
+            .goals-next-step-description {
+                width: 348px;
                 color: #000000;
-                font-size:19px;
-                margin-top:26px;
+                font-size: 19px;
+                margin-top: 26px;
             }
-
-            .goals-divHide{
-                display:none;
+            .goals-divHide {
+                display: none;
             }
-
             @media (max-width: 768px) {
-                .main-container{
+                .main-container {
                     width: 100%;
                 }
-                .goals-next-step-description{
-                    width:100%;
+                .goals-next-step-description {
+                    width: 100%;
                 }
             }
-
-            .stepper-indicator {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-            }
-
-            .stepper-step {
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                background-color: #ccc;
-            }
-
-            .stepper-step.active {
-                background-color: #000;
-            }
-
-
         `;
         document.head.appendChild(styleElement);
     }
-
 
     render() {
         this.container.innerHTML = '';
 
         const mainContainer = document.createElement("div");
         mainContainer.className = "main-container";
-        const stepContainer = document.createElement("div");
-        stepContainer.className = "step-container";
-        mainContainer.appendChild(stepContainer);
 
         // Stepper indicator
         const stepperIndicator = document.createElement("div");
@@ -174,6 +157,10 @@ class GoalsWidget {
             stepperIndicator.appendChild(stepIndicator);
         }
         mainContainer.appendChild(stepperIndicator);
+
+        const stepContainer = document.createElement("div");
+        stepContainer.className = "step-container";
+        mainContainer.appendChild(stepContainer);
 
         const currentStep = this.steps[this.currentStepIndex];
 
