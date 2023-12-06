@@ -21,8 +21,8 @@ class GoalsWidget {
             .main-container {
                 background: #FEFEFE;
                 border-radius: 16px;
-                width: 410px;
-                height: 400px;
+                width: 390px;
+                height: 402px;
                 padding-bottom: 28px;
             }
             .stepper-indicator {
@@ -33,9 +33,9 @@ class GoalsWidget {
                 margin-right: 24px;
             }
             .stepper-step {
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
+                width: 73.75px;
+                height: 6px;
+                border-radius: 100px;
                 background-color: #ccc;
             }
             .stepper-step.active {
