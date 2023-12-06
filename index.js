@@ -16,7 +16,7 @@ class GoalsWidget {
                 display: block;
                 margin: 0;
                 padding: 0;
-                background: #F7F7F8;
+                background: #eee;
             }
             .main-container {
                 background: #FEFEFE;
@@ -28,9 +28,9 @@ class GoalsWidget {
             .stepper-indicator {
                 display: flex;
                 justify-content: space-between;
-                margin-top: 20px;
-                margin-left: 24px;
-                margin-right: 24px;
+                padding-top: 40px;
+                margin-left: 40px;
+                margin-right: 40px;
             }
             .stepper-step {
                 width: 73.75px;
@@ -46,7 +46,7 @@ class GoalsWidget {
                 font-size: 19px;
                 padding-bottom: 33px;
                 padding-top: 20px;
-                padding-left: 24px;
+                padding-left: 40px;
             }
             .goals-container {
                 // margin: 40px;
@@ -55,8 +55,8 @@ class GoalsWidget {
                 border: 1px solid #D1CDCD;
                 background: linear-gradient(to bottom, #FFFFFF 0%, #F2F2F2 100%);
                 border-radius: 10px;
-                margin-left: 24px;
-                margin-right: 24px;
+                margin-left: 40px;
+                margin-right: 40px;
                 display: flex;
                 align-items: center;
                 margin-bottom: 12px;
