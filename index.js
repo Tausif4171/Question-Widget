@@ -89,7 +89,7 @@ class GoalsWidget {
             }
             .goals-nextDiv {
                 margin-top: 12px;
-                margin-left: 24px;
+                margin-left: 40px;
                 display: flex;
                 gap: 10px;
                 justify-content: center;
