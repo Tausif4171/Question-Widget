@@ -1,1 +1,1 @@
-This question widget has been written in plain javascript.
+This question widget has been written in plain javascript! 🚀
